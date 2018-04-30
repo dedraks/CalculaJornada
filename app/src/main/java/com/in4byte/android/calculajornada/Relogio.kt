@@ -1,6 +1,8 @@
 package com.in4byte.android.calculajornada
 
 import android.util.Log
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Relogio(horario: String) {
     var hora: Int = 0
@@ -56,5 +58,21 @@ class Relogio(horario: String) {
         Log.i("TO_STRING", "$tH:$tM")
 
         return "$tH:$tM"
+    }
+
+    companion object {
+        val Hoje
+            get(): String {
+                val date = Date()
+                val sdf = SimpleDateFormat("dd/MM/yyyy")
+                return sdf.format(date)
+            }
+
+        val Agora
+            get(): Relogio {
+                val date = Date()
+                val sdf = SimpleDateFormat("HH:mm")
+                return Relogio(sdf.format(date))
+            }
     }
 }

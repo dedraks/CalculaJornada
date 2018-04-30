@@ -27,6 +27,7 @@ class JornadaAdapter(private val appContext: MainActivity, private var jornadaLi
 
     inner class JornadaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        val textViewData = itemView.textViewData
         val textViewEntrada1 = itemView.textViewEntrada1
         val textViewEntrada2 = itemView.textViewEntrada2
         val textViewEntrada3 = itemView.textViewEntrada3
@@ -41,6 +42,10 @@ class JornadaAdapter(private val appContext: MainActivity, private var jornadaLi
         val linearLayoutSaida3 = itemView.linearLayoutSaida3
 
         fun bindView(jornada: JornadaModel) {
+
+            textViewData.text = jornada.data
+            //textViewData.text = Relogio.Agora.toString()
+
             textViewEntrada1.text = jornada.entrada1
             textViewEntrada2.text = jornada.entrada2
 

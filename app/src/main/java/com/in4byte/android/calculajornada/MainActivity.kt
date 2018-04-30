@@ -1,24 +1,25 @@
 package com.in4byte.android.calculajornada
 
+import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.TextView
 import com.in4byte.android.calculajornada.adapter.JornadaAdapter
 import com.in4byte.android.calculajornada.model.JornadaModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk25.coroutines.onClick
+
 
 class MainActivity : AppCompatActivity() {
 
-    var jornadaList: MutableList<JornadaModel> = mutableListOf(
-            //JornadaModel("07:29", "12:14", "13:17", "16:32", "", "")
-            //JornadaModel("", "", "", "", "", "")
-    )
+    var jornadaList: MutableList<JornadaModel> = mutableListOf()
 
     lateinit var jornadaAdapter: JornadaAdapter
 
@@ -28,8 +29,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-
-
             createCreateJornadaDialog(null)
         }
 
@@ -57,9 +56,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun showTimePicker(editText: EditText) {
+        val hour = Relogio.Agora.hora
+        val minute = Relogio.Agora.minuto
+        val mTimePicker: TimePickerDialog
+        mTimePicker = TimePickerDialog(this@MainActivity, TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute -> editText.setText((if (selectedHour < 10) "0$selectedHour" else "$selectedHour") + ":" + (if (selectedMinute < 10) "0$selectedMinute" else "$selectedMinute")) }, hour, minute, true)//Yes 24 hour time
+        mTimePicker.setTitle("Select Time")
+        mTimePicker.show()
+    }
+
     fun createCreateJornadaDialog(jornada: JornadaModel? = null): JornadaModel {
 
-        val tJornadaModel = JornadaModel("", "", "", "", "", "")
+        val tJornadaModel = JornadaModel(Relogio.Hoje, "", "", "", "", "", "")
 
         lateinit var tEntrada1: TextView
         lateinit var tSaida1: TextView
@@ -77,21 +85,48 @@ class MainActivity : AppCompatActivity() {
                         hint = "Entrada 1"
                         inputType = android.text.InputType.TYPE_CLASS_DATETIME
                         setText(jornada?.entrada1 ?: "")
+                        isFocusable = false
+                        isClickable = true
+
+                        onClick {
+                            showTimePicker(this@editText)
+                        }
                     }
                     tSaida1 = editText {
                         hint = "Saída 1"
                         inputType = android.text.InputType.TYPE_CLASS_DATETIME
                         setText(jornada?.saida1 ?: "")
+
+                        isFocusable = false
+                        isClickable = true
+
+                        onClick {
+                            showTimePicker(this@editText)
+                        }
                     }
                     tEntrada2 = editText {
                         hint = "Entrada 2"
                         inputType = android.text.InputType.TYPE_CLASS_DATETIME
                         setText(jornada?.entrada2 ?: "")
+
+                        isFocusable = false
+                        isClickable = true
+
+                        onClick {
+                            showTimePicker(this@editText)
+                        }
                     }
                     tSaida2 = editText {
                         hint = "Saída 2"
                         inputType = android.text.InputType.TYPE_CLASS_DATETIME
                         setText(jornada?.saida2 ?: "")
+
+                        isFocusable = false
+                        isClickable = true
+
+                        onClick {
+                            showTimePicker(this@editText)
+                        }
                     }
                 }
             }
@@ -107,8 +142,6 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     jornadaList.set(jornadaList.indexOf(jornada), tJornadaModel)
                 }
-
-
                 jornadaAdapter.notifyDataSetChanged()
             }
             cancelButton { }

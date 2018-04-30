@@ -3,7 +3,7 @@ package com.in4byte.android.calculajornada.model
 import com.in4byte.android.calculajornada.Relogio
 
 
-data class JornadaModel(var entrada1: String, var saida1: String, var entrada2: String, var saida2: String, var entrada3: String, var saida3: String) {
+data class JornadaModel(var data: String, var entrada1: String, var saida1: String, var entrada2: String, var saida2: String, var entrada3: String, var saida3: String) {
 
     fun calcJornada1() = (Relogio(saida1) - Relogio(entrada1))
 
