@@ -54,9 +54,9 @@ class JornadaAdapter(private val appContext: MainActivity, private var jornadaLi
 
             textViewSaida1.text = jornada.saida1
             textViewSaida2.text = jornada.saida2
-            textViewJornada1.text = jornada.calcJornada1()
-            textViewIntervalo1.text = jornada.calcIntervalo1()
-            textViewJornada2.text = jornada.calcJornada2()
+            textViewJornada1.text = jornada.calcJornada1().toString()
+            textViewIntervalo1.text = jornada.calcIntervalo1().toString()
+            textViewJornada2.text = jornada.calcJornada2().toString()
             textViewJornadaTotal.text = jornada.calcJornadaTotal()
 
             itemView.onClick {

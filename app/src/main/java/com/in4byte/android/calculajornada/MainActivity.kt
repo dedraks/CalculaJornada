@@ -16,7 +16,7 @@ import org.jetbrains.anko.*
 class MainActivity : AppCompatActivity() {
 
     var jornadaList: MutableList<JornadaModel> = mutableListOf(
-            JornadaModel("07:29", "12:14", "13:17", "16:32", "", "")
+            //JornadaModel("07:29", "12:14", "13:17", "16:32", "", "")
             //JornadaModel("", "", "", "", "", "")
     )
 
