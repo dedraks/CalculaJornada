@@ -73,6 +73,8 @@ class MainActivity : AppCompatActivity() {
         lateinit var tSaida1: TextView
         lateinit var tEntrada2: TextView
         lateinit var tSaida2: TextView
+        lateinit var tEntrada3: TextView
+        lateinit var tSaida3: TextView
         lateinit var dialog: DialogInterface
 
         dialog = alert {
@@ -127,7 +129,31 @@ class MainActivity : AppCompatActivity() {
                         onClick {
                             showTimePicker(this@editText)
                         }
+                    }/*
+                    tEntrada3 = editText {
+                        hint = "Entrada 2"
+                        inputType = android.text.InputType.TYPE_CLASS_DATETIME
+                        setText(jornada?.entrada3 ?: "")
+
+                        isFocusable = false
+                        isClickable = true
+
+                        onClick {
+                            showTimePicker(this@editText)
+                        }
                     }
+                    tSaida3 = editText {
+                        hint = "Saída 2"
+                        inputType = android.text.InputType.TYPE_CLASS_DATETIME
+                        setText(jornada?.saida3 ?: "")
+
+                        isFocusable = false
+                        isClickable = true
+
+                        onClick {
+                            showTimePicker(this@editText)
+                        }
+                    }*/
                 }
             }
 
