@@ -1,5 +1,7 @@
 package com.in4byte.android.calculajornada.model
 
+import android.util.Log
+import com.in4byte.android.calculajornada.Relogio
 import java.text.SimpleDateFormat
 
 
@@ -27,40 +29,34 @@ data class JornadaModel(var entrada1: String, var saida1: String, var entrada2: 
         val txtHora = if (hours < 10) "0$hours" else "$hours"
         val txtMinuto = if (min < 10) "0$min" else "$min"
 
+        val TAG = "JORNADA"
+        Log.i(TAG, "ENTRADA 1: $entrada1")
+        Log.i(TAG, "SAIDA 1: $saida1")
+        val e1 = Relogio(entrada1)
+        val s1 = Relogio(saida1)
+        val e2 = Relogio(entrada2)
+        val s2 = Relogio(saida2)
+
+
+        Log.i(TAG, (s1 - e1).toString())
+        Log.i(TAG, (e2 - s1).toString())
+        Log.i(TAG, (s2 - e2).toString())
+        Log.i(TAG, ((s1 - e1)+(s2 - e2)).toString())
+
         return "$txtHora:$txtMinuto"
     }
 
-    fun calcJornada1() = calcJornada(entrada1, saida1)
+    fun calcJornada1() = (Relogio(saida1) - Relogio(entrada1))
 
-    fun calcJornada2() = calcJornada(entrada2, saida2)
+    fun calcJornada2() = (Relogio(saida2) - Relogio(entrada2))
 
-    fun calcJornada3() = calcJornada(entrada3, saida3)
+    fun calcJornada3() = (Relogio(saida3) - Relogio(entrada3))
 
-    fun calcIntervalo1() = calcJornada(saida1, entrada2)
+    fun calcIntervalo1() = (Relogio(entrada2) - Relogio(saida1))
 
-    fun calcIntervalo2() = calcJornada(saida2, entrada3)
+    fun calcIntervalo2() = (Relogio(entrada3) - Relogio(saida2))
 
     fun calcJornadaTotal(): String {
-        val simpleDateFormat = SimpleDateFormat("HH:mm")
-
-        val j1 = calcJornada1()
-        val j2 = calcJornada2()
-
-        if (j1 == "" || j2 == "") return ""
-
-        val jd1 = simpleDateFormat.parse(calcJornada1())
-        val jd2 = simpleDateFormat.parse(calcJornada2())
-
-
-        val total = jd1.time + jd2.time
-
-        val days = (total / (1000 * 60 * 60 * 24)).toInt()
-        val hours = ((total - 1000 * 60 * 60 * 24 * days) / (1000 * 60 * 60)).toInt()
-        val min = (total - (1000 * 60 * 60 * 24 * days).toLong() - (1000 * 60 * 60 * hours).toLong()).toInt() / (1000 * 60)
-
-        val txtHora = if (hours < 10) "0$hours" else "$hours"
-        val txtMinuto = if (min < 10) "0$min" else "$min"
-
-        return "$txtHora:$txtMinuto"
+        return ((calcJornada1()) + (calcJornada2())).toString()
     }
 }
