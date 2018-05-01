@@ -46,19 +46,21 @@ class JornadaAdapter(private val appContext: MainActivity, private var jornadaLi
             textViewData.text = jornada.data
             //textViewData.text = Relogio.Agora.toString()
 
-            textViewEntrada1.text = jornada.entrada1
-            textViewEntrada2.text = jornada.entrada2
+            textViewEntrada1.text = jornada.entrada_1
+            textViewEntrada2.text = jornada.entrada_2
 
-            if (jornada.entrada3 == "") {
+            if (jornada.entrada_3 == "") {
                 linearLayoutSaida3.visibility = View.GONE
                 linearLayoutEntrada3.visibility = View.GONE
             } else {
-                textViewEntrada3.text = jornada.entrada3
-                textViewSaida3.text = jornada.saida3
+                textViewEntrada3.text = jornada.entrada_3
+                textViewSaida3.text = jornada.saida_3
             }
+            linearLayoutSaida3.visibility = View.GONE
+            linearLayoutEntrada3.visibility = View.GONE
 
-            textViewSaida1.text = jornada.saida1
-            textViewSaida2.text = jornada.saida2
+            textViewSaida1.text = jornada.saida_1
+            textViewSaida2.text = jornada.saida_2
             textViewJornada1.text = jornada.calcJornada1().toString()
             textViewIntervalo1.text = jornada.calcIntervalo1().toString()
             textViewJornada2.text = jornada.calcJornada2().toString()
