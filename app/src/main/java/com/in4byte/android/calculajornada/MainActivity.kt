@@ -1,5 +1,6 @@
 package com.in4byte.android.calculajornada
 
+import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
@@ -91,7 +92,12 @@ class MainActivity : AppCompatActivity() {
         mTimePicker.show()
     }
 
-
+    fun showDatePicker(editText: EditText) {
+        val hoje = Relogio.Hoje
+        val datePickerDialog: DatePickerDialog
+        datePickerDialog = DatePickerDialog(this@MainActivity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth -> editText.setText( "$dayOfMonth/${month+1}/$year" ) }, hoje.substring(6..9).toInt(), hoje.substring(3..4).toInt()-1, hoje.substring(0..1).toInt())
+        datePickerDialog.show()
+    }
 
     fun createCreateJornadaDialog(jornada: JornadaModel? = null): JornadaModel {
 
@@ -115,6 +121,11 @@ class MainActivity : AppCompatActivity() {
                     tData = editText{
                         setText(jornada?.data ?: Relogio.Hoje)
                         inputType = android.text.InputType.TYPE_CLASS_DATETIME
+                        isFocusable = false
+                        isClickable = true
+                        onClick {
+                            showDatePicker(this@editText)
+                        }
                     }
                     tEntrada1 = editText {
                         hint = "Entrada 1"
