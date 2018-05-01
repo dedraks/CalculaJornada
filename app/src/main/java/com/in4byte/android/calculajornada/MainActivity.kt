@@ -59,9 +59,13 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+
         jornadaAdapter = JornadaAdapter(this, jornadaList)
         recyclerViewJornada.adapter = jornadaAdapter
-        recyclerViewJornada.layoutManager = LinearLayoutManager(this)
+        val mLayoutManager = LinearLayoutManager(this)
+        mLayoutManager.reverseLayout = true
+        mLayoutManager.stackFromEnd = true
+        recyclerViewJornada.layoutManager = mLayoutManager
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
