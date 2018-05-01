@@ -91,16 +91,19 @@ class MainActivity : AppCompatActivity() {
         mTimePicker.show()
     }
 
+
+
     fun createCreateJornadaDialog(jornada: JornadaModel? = null): JornadaModel {
 
         val tJornadaModel = JornadaModel(null, Relogio.Hoje, "", "", "", "", "", "")
 
-        lateinit var tEntrada1: TextView
-        lateinit var tSaida1: TextView
-        lateinit var tEntrada2: TextView
-        lateinit var tSaida2: TextView
-        lateinit var tEntrada3: TextView
-        lateinit var tSaida3: TextView
+        lateinit var tData: EditText
+        lateinit var tEntrada1: EditText
+        lateinit var tSaida1: EditText
+        lateinit var tEntrada2: EditText
+        lateinit var tSaida2: EditText
+        lateinit var tEntrada3: EditText
+        lateinit var tSaida3: EditText
         lateinit var dialog: DialogInterface
 
         dialog = alert {
@@ -109,6 +112,10 @@ class MainActivity : AppCompatActivity() {
 
             customView {
                 verticalLayout {
+                    tData = editText{
+                        setText(jornada?.data ?: Relogio.Hoje)
+                        inputType = android.text.InputType.TYPE_CLASS_DATETIME
+                    }
                     tEntrada1 = editText {
                         hint = "Entrada 1"
                         inputType = android.text.InputType.TYPE_CLASS_DATETIME
@@ -184,6 +191,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             okButton {
+                tJornadaModel.data = tData.text.toString()
                 tJornadaModel.entrada_1 = tEntrada1.text.toString()
                 tJornadaModel.entrada_2 = tEntrada2.text.toString()
                 tJornadaModel.saida_1 = tSaida1.text.toString()
@@ -206,14 +214,15 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     database.use {
                         update("jornada",
-                                "entrada_1" to jornada.entrada_1,
-                                "saida_1" to jornada.saida_1,
-                                "entrada_2" to jornada.entrada_2,
+                                "data" to tJornadaModel.data,
+                                "entrada_1" to tJornadaModel.entrada_1,
+                                "saida_1" to tJornadaModel.saida_1,
+                                "entrada_2" to tJornadaModel.entrada_2,
                                 "saida_2" to tJornadaModel.saida_2,
-                                "entrada_3" to jornada.entrada_3,
-                                "saida_3" to jornada.saida_3
+                                "entrada_3" to tJornadaModel.entrada_3,
+                                "saida_3" to tJornadaModel.saida_3
                         )
-                                .where("id = {id}", "id" to jornada.id!!)
+                                .whereArgs("id = {id}", "id" to jornada.id!!)
                                 .exec()
                     }
                     jornadaList.set(jornadaList.indexOf(jornada), tJornadaModel)
