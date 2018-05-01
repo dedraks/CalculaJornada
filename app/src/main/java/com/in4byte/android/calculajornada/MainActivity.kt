@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
     fun showDatePicker(editText: EditText) {
         val hoje = Relogio.Hoje
         val datePickerDialog: DatePickerDialog
-        datePickerDialog = DatePickerDialog(this@MainActivity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth -> editText.setText( "$dayOfMonth/${month+1}/$year" ) }, hoje.substring(6..9).toInt(), hoje.substring(3..4).toInt()-1, hoje.substring(0..1).toInt())
+        datePickerDialog = DatePickerDialog(this@MainActivity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth -> editText.setText( "${if(dayOfMonth<10) "0${dayOfMonth}" else "$dayOfMonth"}/${if(month+1<10)"0${month+1}" else "${month+1}"}/$year" ) }, hoje.substring(6..9).toInt(), hoje.substring(3..4).toInt()-1, hoje.substring(0..1).toInt())
         datePickerDialog.show()
     }
 
