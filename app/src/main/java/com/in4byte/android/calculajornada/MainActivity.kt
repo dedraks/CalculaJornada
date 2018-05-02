@@ -207,7 +207,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (jornada == null) {
                     database.use {
-                        insert("jornada",
+                        val res = insert("jornada",
                                 "id" to null,
                                 "data" to tJornadaModel.data,
                                 "entrada_1" to tJornadaModel.entrada_1,
@@ -217,9 +217,12 @@ class MainActivity : AppCompatActivity() {
                                 "entrada_3" to tJornadaModel.entrada_3,
                                 "saida_3" to tJornadaModel.saida_3
                         )
+                        Log.i("DATABASE", "id just inserted: $res")
+                        tJornadaModel.id = res
                     }
                     jornadaList.add(tJornadaModel)
                 } else {
+                    tJornadaModel.id = jornada.id
                     database.use {
                         update("jornada",
                                 "data" to tJornadaModel.data,
@@ -257,7 +260,7 @@ class MainActivity : AppCompatActivity() {
                     yesButton {
 
                         database.use {
-                            delete("jornada", "id = {id}", "id" to jornadaList[position].id!!)
+                            delete("jornada", "id = {id}", "id" to (jornadaList[position]?.id ?: -1))
                         }
 
                         jornadaList.removeAt(position)

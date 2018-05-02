@@ -4,7 +4,7 @@ import com.in4byte.android.calculajornada.Relogio
 
 
 data class JornadaModel(
-        var id: Int? = null,
+        var id: Long? = null,
         var data: String,
         var entrada_1: String,
         var saida_1: String,
