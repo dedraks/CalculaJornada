@@ -6,6 +6,8 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -16,6 +18,7 @@ import com.in4byte.android.calculajornada.model.JornadaModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.*
+import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.db.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
@@ -37,18 +40,6 @@ class MainActivity : AppCompatActivity() {
 
         database.use {
 
-            /*insert("jornada",
-                    "id" to null,
-                    "data" to "01/01/2001",
-                    "entrada_1" to "01:00",
-                    "saida_1" to "01:00",
-                    "entrada_2" to "01:00",
-                    "saida_2" to "01:00",
-                    "entrada_3" to "01:00",
-                    "saida_3" to "01:00"
-                    )
-
-            */
             select("jornada").exec {
                 val l = parseList(classParser<JornadaModel>())
 
@@ -66,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         mLayoutManager.reverseLayout = true
         mLayoutManager.stackFromEnd = true
         recyclerViewJornada.layoutManager = mLayoutManager
+
+        initSwipe()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -248,5 +241,44 @@ class MainActivity : AppCompatActivity() {
         }.show()
 
         return tJornadaModel
+    }
+
+    fun initSwipe() {
+        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
+                val position = viewHolder!!.adapterPosition
+
+                alert("Tem certeza?", "Excluir") {
+                    isCancelable = false
+                    yesButton {
+
+                        database.use {
+                            delete("jornada", "id = {id}", "id" to jornadaList[position].id!!)
+                        }
+
+                        jornadaList.removeAt(position)
+                        jornadaAdapter.notifyDataSetChanged()
+                    }
+                    noButton {
+                        jornadaAdapter.notifyDataSetChanged()
+                    }
+                }.show()
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerViewJornada)
+    }
+
+    fun carregarDados() = doAsync {
+
+    }
+
+    fun atualizarUI() {
+
     }
 }
