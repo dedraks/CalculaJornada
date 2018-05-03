@@ -32,7 +32,8 @@
                 android:id="@+id/ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+
+                android:background="@color/cardview_shadow_start_color"
                 android:orientation="vertical"
                 card_view:layout_constraintTop_toTopOf="parent">
 
