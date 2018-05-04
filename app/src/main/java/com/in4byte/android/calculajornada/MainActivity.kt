@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,13 +13,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
-import android.widget.TextView
 import com.in4byte.android.calculajornada.adapter.JornadaAdapter
 import com.in4byte.android.calculajornada.model.JornadaModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.*
-import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.db.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
@@ -59,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         recyclerViewJornada.layoutManager = mLayoutManager
 
         initSwipe()
+
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val pref = preferences.getString(getString(R.string.key_daily_hourly_charge_name), "8")
+        Log.i("PREFERENCE:", "$pref")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
