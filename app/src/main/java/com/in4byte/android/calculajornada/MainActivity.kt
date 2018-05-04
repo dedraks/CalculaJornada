@@ -15,6 +15,8 @@ import android.view.MenuItem
 import android.widget.EditText
 import com.in4byte.android.calculajornada.adapter.JornadaAdapter
 import com.in4byte.android.calculajornada.model.JornadaModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.db.*
 import org.jetbrains.anko.sdk25.coroutines.onClick

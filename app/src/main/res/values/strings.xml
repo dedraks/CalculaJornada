@@ -92,4 +92,5 @@
     <string name="key_daily_time">key_daily_time</string>
     <string name="key_interstice">key_interstice</string>
     <string name="key_extra_time">key_extra_time</string>
+    <string name="key_show_monthly_summary">key_extra_time</string>
 </resources>
