@@ -15,8 +15,6 @@ import android.view.MenuItem
 import android.widget.EditText
 import com.in4byte.android.calculajornada.adapter.JornadaAdapter
 import com.in4byte.android.calculajornada.model.JornadaModel
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.db.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -61,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val pref = preferences.getString(getString(R.string.key_daily_hourly_charge_name), "8")
+        val pref = preferences.getString(getString(R.string.key_daily_time), "8")
         Log.i("PREFERENCE:", "$pref")
     }
 

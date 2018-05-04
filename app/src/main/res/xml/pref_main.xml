@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="General">
+    <PreferenceCategory android:title="Geral">
+        <!--
         <EditTextPreference
             android:defaultValue="@string/default_daily_hourly_charge"
             android:inputType="numberDecimal"
@@ -8,6 +9,26 @@
             android:singleLine="true"
             android:summary="@string/default_daily_hourly_charge"
             android:title="@string/title_gallery_storage" />
+            -->
+
+        <com.in4byte.android.calculajornada.TimePreference
+            android:key="@string/key_daily_time"
+            android:summary="08:00"
+            android:title="@string/title_gallery_storage"
+            android:defaultValue="08:00" />
+
+        <com.in4byte.android.calculajornada.TimePreference
+            android:key="@string/key_interstice"
+            android:summary="11:00"
+            android:title="Interstício padrão"
+            android:defaultValue="11:00" />
+
+        <com.in4byte.android.calculajornada.TimePreference
+            android:key="@string/key_extra_time"
+            android:summary="02:00"
+            android:title="Limite de horas extras por dia"
+            android:defaultValue="02:00" />
+
 
         <CheckBoxPreference
             android:defaultValue="true"

@@ -27,10 +27,15 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             addPreferencesFromResource(R.xml.pref_main)
 
             // gallery EditText change listener
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_daily_hourly_charge_name)))
+            //bindPreferenceSummaryToValue(findPreference(getString(R.string.key_daily_hourly_charge_name)))
 
             // notification preference change listener
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_notifications_new_message_ringtone)))
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_daily_time)))
+
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_interstice)))
+
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_extra_time)))
+
 
             // feedback preference click listener
             val myPref = findPreference(getString(R.string.key_send_feedback))
@@ -106,6 +111,10 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                     // update the changed gallery name to summary filed
                     preference.setSummary(stringValue)
                 }
+            } else if (preference is TimePreference) {
+
+                preference.setSummary(stringValue)
+
             } else {
                 preference.summary = stringValue
             }
